@@ -1,8 +1,9 @@
-const mongoose=require('mongoose')
-const bcrypt=require('bcrypt')
-const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const userSchema=new mongoose.Schema({
+
+const userSchema = new mongoose.Schema({
     fullname: {
         firstname: {
             type: String,
@@ -14,21 +15,20 @@ const userSchema=new mongoose.Schema({
             minlength: [ 3, 'Last name must be at least 3 characters long' ],
         }
     },
-    email:{
-        type:String,
-        require:true,
-        unique:true,
-        minlength:[5,"Email must be at least 5 character long"]
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: [ 5, 'Email must be at least 5 characters long' ],
     },
-    password:{
-        type:String,
-        require:true,
-        select:false
+    password: {
+        type: String,
+        required: true,
+        select: false,
     },
-    socketId:{
-        type:String,
-    }
-
+    socketId: {
+        type: String,
+    },
 })
 
 userSchema.methods.generateAuthToken = function () {
@@ -36,13 +36,15 @@ userSchema.methods.generateAuthToken = function () {
     return token;
 }
 
-userSchema.methods.comparePassword=async function(password) {
-    return await bcrypt.compare(password,this.password);
+userSchema.methods.comparePassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
 }
 
 userSchema.statics.hashPassword = async function (password) {
     return await bcrypt.hash(password, 10);
 }
-const userModel=mongoose.model('user',userSchema);
 
-module.exports=userModel;
+const userModel = mongoose.model('user', userSchema);
+
+
+module.exports = userModel;

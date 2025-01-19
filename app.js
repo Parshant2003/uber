@@ -20,4 +20,5 @@ app.get('/',(req,res)=>{
 })
 app.use("/user",userRoute);
 
+
 module.exports=app;
