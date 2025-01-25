@@ -5,6 +5,7 @@ const app = express();
 const cors=require('cors');
 const connectTOdb=require("./db/db")
 const userRoute=require("./routes/user.routes")
+const captainRoute=require("./routes/captain.routes")   
 const cookieParser=require('cookie-parser');
 
 
@@ -21,6 +22,7 @@ app.get('/',(req,res)=>{
     res.send("Helllo World");
 })
 app.use("/user",userRoute);
+app.use("/captain",captainRoute);
 
 
 
